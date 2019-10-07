@@ -2,4 +2,4 @@ from app import create_app
 
 app = create_app()
 
-app.run(port=app.port)
+app.run(host=app.host, port=app.port)

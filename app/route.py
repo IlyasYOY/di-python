@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, jsonify
 
 routes = Blueprint('routes', __name__)
 
@@ -8,4 +8,11 @@ routes = Blueprint('routes', __name__)
 @routes.route('/todos', methods=['GET'])
 def get_todos():
     todos = current_app.todos.fetch_all()
-    return json.dumps(x.to_dict() for x in todos), 200
+    return jsonify([x.to_dict() for x in todos])
+
+
+@routes.route('/')
+def index():
+    return jsonify({
+        'Hello': 'World'
+    })
