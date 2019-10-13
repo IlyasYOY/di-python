@@ -13,3 +13,4 @@ class Todo:
     def to_dict(self):
         d = asdict(self)
         d['_id'] = str(self._id)
+        return d

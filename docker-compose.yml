@@ -9,21 +9,43 @@ services:
     restart: always
     ports:
       - 3000:3000
+    hostname: di-python
     depends_on:
       - mongo
     env_file:
       - .env
 
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    hostname: redis
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 8001:8081
+
   mongo:
+    container_name: mongo
     image: mongo
     restart: always
     ports:
       - 27017:27017
+    hostname: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
 
   mongo-express:
+    container_name: mongo-express
     image: mongo-express
     restart: always
     depends_on:

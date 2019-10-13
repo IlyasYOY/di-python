@@ -1,3 +1,4 @@
+import logging
 from typing import List, Union, Dict
 
 from bson import ObjectId
@@ -9,6 +10,7 @@ from app.model import Todo
 
 
 class Todos:
+    _logger = logging.getLogger(__name__)
     _client: MongoClient
     _collection_name: str
     _database_name: str
@@ -27,7 +29,7 @@ class Todos:
         return Todo(**result)
 
     def fetch_all(self) -> List[Todo]:
-        result = self._collection.find({})
+        result = self._collection.find()
         return [Todo(**x) for x in result]
 
     def save(self, todo: Union[Todo, Dict]) -> str:
